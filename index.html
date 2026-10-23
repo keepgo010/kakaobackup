@@ -409,6 +409,7 @@ const reEsc=t=>t.replace(/[.*+?^${}()|[\]\\]/g,'\\$&');
 function cleanBot(t,names){
   const ns=[...names,'사용자'].filter(Boolean).map(reEsc).join('|');
   t=t.replace(new RegExp('@('+ns+')[ \\t]?','g'),'');
+  t=t.replace(/(?<=^|[\s(\[])@[^\s@,.!?:;)\]]+[ \t]*/gm,'');
   t=t.split('\n').filter(l=>!/^\s*(더보기|전체보기|이어서\s?질문하기)\s*$/.test(l)).map(l=>l.replace(/\s*(…|\.\.\.)?\s*더보기\s*$/,'')).join('\n');
   return t.replace(/^\s*\n+/,'').replace(/\s+$/,'');
 }
